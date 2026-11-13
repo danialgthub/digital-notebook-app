@@ -1,0 +1,1 @@
+Margin Notes is a digital notebook that looks like a physical one. Each topic gets its own coloured index tab, and each subtopic is a page with ruled lines, a source link and a “Remember” sticky note. You can search across all notes, and everything is saved in your browser. It works on desktop and phone, in light and dark mode, and includes Markdown copy and JSON backup.
