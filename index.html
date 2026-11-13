@@ -1,0 +1,526 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Margin Notes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Sans:wght@400;500;600&family=Patrick+Hand&display=swap">
+<style>
+/* Layout: a desk with colored index tabs along the top. Below them a notebook spread: contents page on the left, writing page on the right, a ring-bound spine between. On phones it shows one page at a time. */
+:root {
+  --desk: #2D4757;
+  --desk-ink: #E8EEF1;
+  --desk-muted: #A7B9C3;
+  --paper: #FAF9F3;
+  --paper-edge: #D9D6C8;
+  --rule: #BDD3E4;
+  --margin: #E48D8D;
+  --ink: #1D2B52;
+  --muted: #66728F;
+  --hover: #EEF1F6;
+  --spine: #24394A;
+  --ring: #D3D8DF;
+  --hole: #14212B;
+  --sticky: #FFE88B;
+  --sticky-ink: #4A3E0E;
+  --warn: #B3412F;
+  --t0: #EF7A66; --t1: #F3BE55; --t2: #66BB8F; --t3: #57A2DB; --t4: #A284DB; --t5: #E580AC;
+  --tab-ink: #1A1A1A;
+  --shadow: rgba(8, 18, 26, 0.45);
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --font-body: "Patrick Hand", "Segoe Print", "Bradley Hand", system-ui, sans-serif;
+  --font-ui: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --desk: #0B1217; --desk-ink: #E4ECF0; --desk-muted: #8396A1;
+    --paper: #1B262F; --paper-edge: #0E161C; --rule: #2C4252; --margin: #8D4F55;
+    --ink: #DCE6F7; --muted: #8C9DB6; --hover: #22313D; --spine: #121C23; --ring: #7F8B97; --hole: #05090C;
+    --sticky: #5B4F16; --sticky-ink: #FFEFAE; --warn: #FF9B86;
+    --t0: #E8806D; --t1: #E8B452; --t2: #5BB488; --t3: #5AA5DD; --t4: #A58BDB; --t5: #E186AF;
+    --shadow: rgba(0, 0, 0, 0.6); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --desk: #0B1217; --desk-ink: #E4ECF0; --desk-muted: #8396A1;
+  --paper: #1B262F; --paper-edge: #0E161C; --rule: #2C4252; --margin: #8D4F55;
+  --ink: #DCE6F7; --muted: #8C9DB6; --hover: #22313D; --spine: #121C23; --ring: #7F8B97; --hole: #05090C;
+  --sticky: #5B4F16; --sticky-ink: #FFEFAE; --warn: #FF9B86;
+  --t0: #E8806D; --t1: #E8B452; --t2: #5BB488; --t3: #5AA5DD; --t4: #A58BDB; --t5: #E186AF;
+  --shadow: rgba(0, 0, 0, 0.6); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--desk); color: var(--desk-ink); font-family: var(--font-ui); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--t3); outline-offset: 2px; }
+
+.desk { max-width: 1120px; margin: 0 auto; display: grid; gap: 14px; }
+.bar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.bar h1 { font-family: var(--font-hand); font-weight: 700; font-size: 2.2rem; line-height: 1; margin: 0; }
+.bar .state { font-size: 0.78rem; color: var(--desk-muted); }
+.banner { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; background: color-mix(in srgb, var(--t1) 22%, transparent); border-radius: 10px; padding: 8px 14px; font-size: 0.86rem; }
+.banner[hidden] { display: none !important; }
+.linkbtn { background: none; border: 1px solid currentColor; border-radius: 8px; padding: 3px 10px; font-size: 0.8rem; }
+
+/* Index tabs */
+.tabs { display: flex; gap: 6px; align-items: flex-end; overflow-x: auto; padding: 8px 4px 0; margin-bottom: -14px; position: relative; z-index: 2; scrollbar-width: thin; }
+.tab { flex: none; border: 0; background: var(--c); color: var(--tab-ink); font-weight: 600; font-size: 0.88rem; padding: 9px 16px 20px; border-radius: 10px 10px 0 0; max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; box-shadow: inset 0 -8px 10px -8px rgba(0,0,0,0.25); transform: translateY(8px); transition: transform 0.15s; }
+.tab:hover { transform: translateY(4px); }
+.tab[aria-selected="true"] { transform: translateY(0); padding-top: 12px; box-shadow: none; }
+.tab.add { background: transparent; color: var(--desk-ink); border: 1.5px dashed var(--desk-muted); border-bottom: 0; font-size: 1.1rem; padding-inline: 14px; }
+
+/* Notebook */
+.notebook { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) 46px minmax(0, 1.35fr); background: var(--paper); border-radius: 14px; box-shadow: 0 2px 0 var(--paper-edge), 0 18px 40px -14px var(--shadow); min-height: 680px; overflow: hidden; color: var(--ink); }
+.mobbar { display: none; }
+.spine { background: var(--spine); position: relative; }
+.spine::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, var(--hole) 0 8px, transparent 9px) 0 20px / 100% 44px repeat-y; }
+.spine::after { content: ""; position: absolute; inset: 0 -9px; background: repeating-linear-gradient(to bottom, transparent 0 17px, var(--ring) 17px 25px, transparent 25px 44px) 0 20px / 100% 100% no-repeat; border-radius: 4px; opacity: 0.95; }
+.page { min-width: 0; padding: 24px 26px 28px; display: flex; flex-direction: column; gap: 14px; }
+.page.left { background: linear-gradient(to right, transparent 90%, rgba(0,0,0,0.05)); }
+.page.right { background: linear-gradient(to left, transparent 94%, rgba(0,0,0,0.05)); position: relative; }
+
+/* Left page: contents */
+.topic-head { display: grid; gap: 8px; }
+.topic-name { font-family: var(--font-hand); font-weight: 700; font-size: 2.3rem; line-height: 1.05; border: 0; background: none; width: 100%; padding: 0; min-width: 0; border-bottom: 2px solid transparent; }
+.topic-name:hover { border-bottom-color: var(--rule); }
+.topic-name:focus { outline: none; border-bottom-color: var(--c, var(--t3)); }
+.tools { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.sw { width: 18px; height: 18px; border-radius: 50%; border: 2px solid transparent; background: var(--c); padding: 0; }
+.sw[aria-pressed="true"] { border-color: var(--ink); }
+.mini { background: none; border: 0; color: var(--muted); font-size: 0.8rem; text-decoration: underline; text-underline-offset: 3px; padding: 2px 0; }
+.mini.danger { color: var(--warn); }
+.search { width: 100%; background: var(--hover); border: 0; border-radius: 999px; padding: 8px 14px; font-size: 0.9rem; }
+.search::placeholder { color: var(--muted); }
+.eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+.entries { list-style: none; margin: 0; padding: 0; }
+.entry { display: grid; grid-template-columns: minmax(0, auto) 1fr auto; align-items: end; gap: 8px; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--rule); padding: 8px 6px 4px; min-height: 42px; border-radius: 4px 4px 0 0; }
+.entry:hover { background: var(--hover); }
+.entry .t { font-family: var(--font-body); font-size: 1.2rem; line-height: 1.2; overflow-wrap: anywhere; }
+.entry .dots { border-bottom: 2px dotted var(--rule); height: 0.7em; min-width: 8px; }
+.entry .n { font-family: var(--font-body); color: var(--muted); font-size: 1rem; }
+.entry[aria-current="true"] { background: color-mix(in srgb, var(--c, var(--t3)) 20%, transparent); }
+.entry[aria-current="true"] .t { font-weight: 700; }
+.entry .chip { grid-column: 1 / -1; font-size: 0.78rem; color: var(--muted); font-family: var(--font-ui); }
+.entry.addrow { color: var(--muted); border-bottom-style: dashed; font-family: var(--font-body); font-size: 1.15rem; display: block; }
+.none { font-family: var(--font-body); font-size: 1.15rem; color: var(--muted); padding: 10px 6px; }
+details.backup { margin-top: auto; font-size: 0.82rem; color: var(--muted); }
+details.backup summary { cursor: pointer; padding: 6px 0; }
+.backup-body { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-bottom: 4px; }
+.pbtn { border: 1px solid var(--rule); background: var(--paper); border-radius: 8px; padding: 5px 11px; font-size: 0.82rem; }
+.pbtn:hover { background: var(--hover); }
+.msg { flex-basis: 100%; color: var(--ink); min-height: 1.3em; }
+
+/* Right page: writing */
+.crumbs { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; }
+.head2 { display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 14px 20px; align-items: start; }
+.p-title { display: block; font-family: var(--font-hand); font-weight: 700; font-size: 2.4rem; line-height: 1.1; border: 0; background: none; width: 100%; padding: 0; min-width: 0; border-bottom: 2px solid transparent; resize: none; overflow: hidden; height: auto; }
+.p-title:focus, .p-source:focus { outline: none; border-bottom-color: var(--c, var(--t3)); }
+.p-title::placeholder, .p-source::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.7; }
+.srcrow { display: flex; gap: 10px; align-items: center; margin-top: 6px; }
+.p-source { flex: 1; min-width: 0; font-size: 0.86rem; color: var(--muted); background: none; border: 0; border-bottom: 1px dashed var(--rule); padding: 4px 0; }
+.srcrow a { font-size: 0.82rem; color: var(--ink); white-space: nowrap; }
+.sticky { background: var(--sticky); color: var(--sticky-ink); padding: 10px 11px 12px; border-radius: 3px 3px 12px 3px; transform: rotate(1.8deg); box-shadow: 0 8px 12px -8px var(--shadow); display: grid; gap: 4px; }
+.sticky label { font-family: var(--font-hand); font-weight: 700; font-size: 1.2rem; line-height: 1; }
+.sticky textarea { background: none; border: 0; resize: none; width: 100%; height: 86px; font-family: var(--font-body); font-size: 1.02rem; line-height: 1.25; padding: 0; color: inherit; }
+.sticky textarea:focus { outline: none; }
+.sticky textarea::placeholder { color: inherit; opacity: 0.55; }
+.writing { position: relative; margin: 4px -26px 0; flex: 1; }
+.writing::before { content: ""; position: absolute; top: 0; bottom: -28px; left: 58px; width: 2px; background: var(--margin); opacity: 0.8; }
+.writing textarea { display: block; width: 100%; min-height: 400px; resize: none; overflow: hidden; border: 0; background: repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px); font-family: var(--font-body); font-size: 1.2rem; line-height: 32px; padding: 0 28px 0 76px; color: var(--ink); tab-size: 2; }
+.writing textarea:focus { outline: none; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 16px; font-size: 0.78rem; color: var(--muted); padding-top: 18px; }
+.empty-state { margin: auto; text-align: center; font-family: var(--font-body); font-size: 1.3rem; color: var(--muted); max-width: 26ch; display: grid; gap: 14px; justify-items: center; }
+.empty-state .pbtn { font-family: var(--font-ui); }
+
+@media (max-width: 899px) {
+  .notebook { grid-template-columns: 30px minmax(0, 1fr); min-height: 600px; }
+  .spine { grid-row: 1 / span 2; }
+  .mobbar { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 10px 12px 0; grid-column: 2; }
+  .mobbar button { border: 1px solid var(--rule); background: none; border-radius: 999px; padding: 7px; font-size: 0.85rem; color: var(--muted); }
+  .mobbar button[aria-pressed="true"] { background: var(--hover); color: var(--ink); font-weight: 600; }
+  .notebook[data-view="list"] .page.right, .notebook[data-view="page"] .page.left { display: none; }
+  .page { grid-column: 2; padding: 16px 16px 24px; }
+  .writing { margin-inline: -16px; }
+  .writing::before { left: 40px; }
+  .writing textarea { padding-left: 56px; padding-right: 16px; font-size: 1.15rem; }
+  .head2 { grid-template-columns: minmax(0, 1fr); }
+  .sticky { transform: rotate(-0.8deg); }
+  .sticky textarea { height: 60px; }
+  .p-title { font-size: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="desk">
+  <div class="bar">
+    <h1>Margin Notes</h1>
+    <span class="state" id="state">Saved in this browser</span>
+  </div>
+  <div class="banner" id="banner" hidden>
+    <span>These are example notes so you can see how it works. Clear them when you are ready to write your own.</span>
+    <button class="linkbtn" id="clear-ex" type="button">Clear examples</button>
+  </div>
+
+  <div class="tabs" id="tabs" role="tablist" aria-label="Topics"></div>
+
+  <div class="notebook" id="nb" data-view="page">
+    <div class="mobbar">
+      <button type="button" id="mv-list" aria-pressed="false">Contents</button>
+      <button type="button" id="mv-page" aria-pressed="true">Page</button>
+    </div>
+    <section class="page left" id="left" aria-label="Contents"></section>
+    <div class="spine" aria-hidden="true"></div>
+    <section class="page right" id="right" aria-label="Page"></section>
+  </div>
+</div>
+
+<script>
+(function () {
+  var KEY = 'margin-notes-v1';
+  var COLORS = 6;
+  var data = { topics: [], sel: { topic: null, page: null }, examples: false };
+  var query = '';
+  var view = 'page';
+  var armed = null, armTimer = null, saveTimer = null;
+
+  function uid() { return Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4); }
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function today() { return new Date().toISOString(); }
+  function fmtDate(iso) { try { return new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }); } catch (e) { return ''; } }
+
+  function mkPage(title, source, body, key) { return { id: uid(), title: title, source: source || '', body: body || '', key: key || '', created: today(), updated: today() }; }
+
+  function seed() {
+    var t = Date.now();
+    data.examples = true;
+    data.topics = [
+      { id: uid(), name: 'SMTP', color: 0, pages: [
+        mkPage('How an email gets delivered', 'Example source: a networking video',
+          'Sender app (MUA) hands the message to its mail server (MSA).\nThat server (MTA) looks up the recipient domain\'s MX record in DNS.\nIt connects to that mail server and relays the message.\nThe receiving server stores it (MDA) until the user opens it.\n\nEach hop adds a "Received:" header, so headers show the route.',
+          'MUA > MSA > MTA > MDA'),
+        mkPage('SMTP commands and replies', '',
+          'A session is a short text conversation:\n\nEHLO client.example.com\nMAIL FROM:<a@example.com>\nRCPT TO:<b@example.org>\nDATA ... message ... then a line with only "."\nQUIT\n\nReply codes:\n2xx = OK\n3xx = send more (after DATA)\n4xx = temporary failure, try again later\n5xx = permanent failure, give up',
+          '4xx retry, 5xx stop'),
+        mkPage('Ports 25, 587 and 465', '',
+          '25: server to server relay. Often blocked for home users.\n587: mail submission from an email app. Uses STARTTLS and login.\n465: submission with TLS from the first byte (implicit TLS).\n\nTo send from an app, use 587 or 465 with authentication.',
+          'Apps use 587'),
+        mkPage('SPF, DKIM and DMARC', '',
+          'SPF: a DNS record listing which servers may send for the domain.\nDKIM: the sender signs the message, the receiver checks the signature using a public key in DNS.\nDMARC: tells receivers what to do if SPF and DKIM do not line up with the From domain (none, quarantine, reject).\n\nAll three are DNS TXT records.',
+          'SPF = who, DKIM = signed, DMARC = policy')
+      ] },
+      { id: uid(), name: 'CyberSec', color: 3, pages: [
+        mkPage('The CIA triad', '',
+          'Confidentiality: only the right people can read the data (encryption, access control).\nIntegrity: data is not changed without anyone noticing (hashes, signatures).\nAvailability: systems work when needed (backups, redundancy).\n\nMost attacks hit at least one of the three.',
+          'C, I, A'),
+        mkPage('Phishing red flags', '',
+          'Urgent or threatening wording.\nSender address that is close to, but not exactly, the real domain.\nLinks whose real address differs from the text shown.\nUnexpected attachments.\nRequests for passwords or payment.\n\nHover over links before clicking.',
+          'Check the real sender and link')
+      ] },
+      { id: uid(), name: 'DevOps', color: 2, pages: [
+        mkPage('CI/CD pipeline stages', '',
+          'Commit > build > test > package > deploy > monitor.\nCI: merge small changes often, run the build and tests on every push.\nCD: every passing change can be released, either automatically (delivery vs deployment depends on whether a person approves).\n\nFast feedback is the whole point.',
+          'Small changes, fast feedback'),
+        mkPage('Docker basics', '',
+          'Image: a read-only template. Container: a running instance of it.\nDockerfile: the recipe to build an image.\nCommands to remember:\ndocker build -t app .\ndocker run -p 8080:80 app\ndocker ps\ndocker logs <container>',
+          'Image = recipe result, container = running copy')
+      ] }
+    ];
+    data.sel = { topic: data.topics[0].id, page: data.topics[0].pages[0].id };
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var s = JSON.parse(raw);
+        if (s && Array.isArray(s.topics)) { data = s; if (!data.sel) data.sel = { topic: null, page: null }; return; }
+      }
+    } catch (e) {}
+    seed();
+  }
+  function save() {
+    $('state').textContent = 'Saving...';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      try { localStorage.setItem(KEY, JSON.stringify(data)); $('state').textContent = 'Saved in this browser'; }
+      catch (e) { $('state').textContent = 'Could not save here. Use Download backup.'; }
+    }, 300);
+  }
+
+  function topic() { return data.topics.filter(function (t) { return t.id === data.sel.topic; })[0] || null; }
+  function page() { var t = topic(); if (!t) return null; return t.pages.filter(function (p) { return p.id === data.sel.page; })[0] || null; }
+  function ensureSel() {
+    var t = topic();
+    if (!t && data.topics.length) { t = data.topics[0]; data.sel.topic = t.id; }
+    if (t && !page()) data.sel.page = t.pages.length ? t.pages[0].id : null;
+  }
+  function cvar(i) { return 'var(--t' + (i % COLORS) + ')'; }
+
+  /* ---------- tabs ---------- */
+  function renderTabs() {
+    var h = data.topics.map(function (t) {
+      return '<button class="tab" role="tab" type="button" data-topic="' + t.id + '" aria-selected="' + (t.id === data.sel.topic) + '" style="--c:' + cvar(t.color) + '">' + esc(t.name || 'Untitled') + '</button>';
+    }).join('');
+    h += '<button class="tab add" type="button" id="add-topic" aria-label="Add a topic">+ Topic</button>';
+    $('tabs').innerHTML = h;
+  }
+
+  /* ---------- left page ---------- */
+  function snippet(body, q) {
+    var i = body.toLowerCase().indexOf(q);
+    if (i < 0) return '';
+    var s = body.slice(Math.max(0, i - 24), i + q.length + 50).replace(/\s+/g, ' ');
+    return (i > 24 ? '...' : '') + s + '...';
+  }
+
+  function renderLeft() {
+    var t = topic(), el = $('left'), h = '';
+    if (!t) {
+      el.innerHTML = '<div class="empty-state"><p>No topics yet.</p><button class="pbtn" type="button" id="add-topic-2">Create your first topic</button></div>';
+      return;
+    }
+    var c = cvar(t.color);
+    h += '<div class="topic-head" style="--c:' + c + '">';
+    h += '<input class="topic-name" id="topic-name" value="' + esc(t.name) + '" placeholder="Topic name" aria-label="Topic name" maxlength="40">';
+    h += '<div class="tools">';
+    for (var i = 0; i < COLORS; i++) h += '<button class="sw" type="button" data-color="' + i + '" aria-pressed="' + (t.color === i) + '" aria-label="Tab colour ' + (i + 1) + '" style="--c:' + cvar(i) + '"></button>';
+    var armedT = armed === 'topic';
+    h += '<button class="mini danger" type="button" id="del-topic">' + (armedT ? 'Tap again to delete topic and ' + t.pages.length + ' page' + (t.pages.length === 1 ? '' : 's') : 'Delete topic') + '</button>';
+    h += '</div></div>';
+    h += '<input class="search" id="search" type="search" placeholder="Search all notes" aria-label="Search all notes" value="' + esc(query) + '">';
+
+    if (query.trim()) {
+      var q = query.trim().toLowerCase(), res = [];
+      data.topics.forEach(function (tp) {
+        tp.pages.forEach(function (p) {
+          var inT = p.title.toLowerCase().indexOf(q) >= 0, inB = p.body.toLowerCase().indexOf(q) >= 0 || p.key.toLowerCase().indexOf(q) >= 0 || p.source.toLowerCase().indexOf(q) >= 0;
+          if (inT || inB) res.push({ tp: tp, p: p });
+        });
+      });
+      h += '<div class="eyebrow"><span>Search results</span><span>' + res.length + '</span></div><ul class="entries">';
+      if (!res.length) h += '<li class="none">Nothing matches "' + esc(query.trim()) + '".</li>';
+      res.forEach(function (r) {
+        h += '<li><button class="entry" type="button" data-topic="' + r.tp.id + '" data-page="' + r.p.id + '" style="--c:' + cvar(r.tp.color) + '"><span class="t">' + esc(r.p.title || 'Untitled') + '</span><span class="dots"></span><span class="n">' + esc(r.tp.name) + '</span>' + (snippet(r.p.body, q) ? '<span class="chip">' + esc(snippet(r.p.body, q)) + '</span>' : '') + '</button></li>';
+      });
+      h += '</ul>';
+    } else {
+      h += '<div class="eyebrow"><span>Contents</span><span>' + t.pages.length + ' page' + (t.pages.length === 1 ? '' : 's') + '</span></div><ul class="entries" style="--c:' + c + '">';
+      if (!t.pages.length) h += '<li class="none">No subtopics yet.</li>';
+      t.pages.forEach(function (p, i) {
+        h += '<li><button class="entry" type="button" data-page="' + p.id + '" aria-current="' + (p.id === data.sel.page) + '"><span class="t">' + esc(p.title || 'Untitled') + '</span><span class="dots"></span><span class="n">' + (i + 1) + '</span></button></li>';
+      });
+      h += '<li><button class="entry addrow" type="button" id="add-page">+ New subtopic</button></li></ul>';
+    }
+
+    h += '<details class="backup"><summary>Copy and backup</summary><div class="backup-body">' +
+      '<button class="pbtn" type="button" id="copy-md">Copy topic as Markdown</button>' +
+      '<button class="pbtn" type="button" id="dl">Download backup</button>' +
+      '<label class="pbtn" for="imp">Import backup</label><input id="imp" type="file" accept=".json,application/json" hidden>' +
+      '<span class="msg" id="msg" role="status"></span></div></details>';
+    el.innerHTML = h;
+  }
+
+  /* ---------- right page ---------- */
+  function grow() {
+    var ta = $('p-body'); if (!ta) return;
+    ta.style.height = 'auto';
+    var min = Math.max(400, $('right').clientHeight - ta.getBoundingClientRect().top + $('right').getBoundingClientRect().top - 90);
+    ta.style.height = Math.max(ta.scrollHeight, 400) + 'px';
+  }
+
+  function growTitle() {
+    var t = $('p-title'); if (!t) return;
+    t.style.height = 'auto'; t.style.height = t.scrollHeight + 'px';
+  }
+  function isUrl(s) { return /^https?:\/\/\S+$/i.test(s.trim()); }
+
+  function words(s) { var m = s.trim().match(/\S+/g); return m ? m.length : 0; }
+
+  function renderRight() {
+    var t = topic(), p = page(), el = $('right');
+    if (!t) { el.innerHTML = '<div class="empty-state"><p>Create a topic to start writing.</p></div>'; return; }
+    if (!p) {
+      el.innerHTML = '<div class="empty-state"><p>Pick a subtopic from the contents, or start a new page.</p><button class="pbtn" type="button" id="add-page-2">+ New subtopic</button></div>';
+      return;
+    }
+    var idx = t.pages.indexOf(p) + 1;
+    el.style.setProperty('--c', cvar(t.color));
+    el.innerHTML =
+      '<div class="crumbs"><span>' + esc(t.name) + ' &middot; page ' + idx + '</span><span id="edited">Edited ' + fmtDate(p.updated) + '</span></div>' +
+      '<div class="head2"><div>' +
+        '<textarea class="p-title" id="p-title" rows="1" placeholder="Subtopic title" aria-label="Subtopic title" maxlength="80">' + esc(p.title) + '</textarea>' +
+        '<div class="srcrow"><input class="p-source" id="p-source" value="' + esc(p.source) + '" placeholder="Source: paste a link or write where you learned it" aria-label="Source">' +
+        '<a id="src-open" href="' + (isUrl(p.source) ? esc(p.source.trim()) : '#') + '" target="_blank" rel="noopener noreferrer"' + (isUrl(p.source) ? '' : ' hidden') + '>Open</a></div>' +
+      '</div>' +
+      '<div class="sticky"><label for="p-key">Remember</label><textarea id="p-key" maxlength="140" placeholder="One line to take away">' + esc(p.key) + '</textarea></div></div>' +
+      '<div class="writing"><textarea id="p-body" spellcheck="true" placeholder="Start writing. Use blank lines between ideas and keep each note short.">' + esc(p.body) + '</textarea></div>' +
+      '<div class="foot"><span id="wc">' + words(p.body) + ' words</span><button class="mini danger" type="button" id="del-page">' + (armed === 'page' ? 'Tap again to delete this page' : 'Delete page') + '</button></div>';
+    growTitle(); grow();
+  }
+
+  function setView(v) {
+    view = v; $('nb').setAttribute('data-view', v);
+    $('mv-list').setAttribute('aria-pressed', v === 'list'); $('mv-page').setAttribute('aria-pressed', v === 'page');
+  }
+
+  function renderAll() {
+    ensureSel(); renderTabs(); renderLeft(); renderRight();
+    $('banner').hidden = !data.examples;
+  }
+
+  function touch(p) {
+    p.updated = today();
+    var e = $('edited'); if (e) e.textContent = 'Edited ' + fmtDate(p.updated);
+  }
+
+  function arm(what, rerender) {
+    armed = what; clearTimeout(armTimer);
+    armTimer = setTimeout(function () { armed = null; rerender(); }, 3500);
+  }
+
+  /* ---------- actions ---------- */
+  function selectPage(tid, pid) {
+    data.sel.topic = tid; data.sel.page = pid; armed = null; save();
+    renderTabs(); renderLeft(); renderRight(); setView('page');
+  }
+  function addTopic() {
+    var t = { id: uid(), name: 'New topic', color: data.topics.length % COLORS, pages: [] };
+    data.topics.push(t); data.sel = { topic: t.id, page: null }; query = ''; armed = null; save(); renderAll(); setView('list');
+    var inp = $('topic-name'); if (inp) { inp.focus(); inp.select(); }
+  }
+  function addPage() {
+    var t = topic(); if (!t) return;
+    var p = mkPage('', '', '', ''); t.pages.push(p); data.sel.page = p.id; query = ''; save();
+    renderLeft(); renderRight(); setView('page');
+    var inp = $('p-title'); if (inp) inp.focus();
+  }
+
+  $('tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'add-topic') { addTopic(); return; }
+    var id = b.getAttribute('data-topic'); if (!id) return;
+    data.sel.topic = id; data.sel.page = null; query = ''; armed = null; ensureSel(); save(); renderAll();
+    setView(page() ? view : 'list');
+  });
+
+  $('left').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'add-topic-2') { addTopic(); return; }
+    if (b.id === 'add-page') { addPage(); return; }
+    if (b.hasAttribute('data-color')) { var t = topic(); t.color = +b.getAttribute('data-color'); save(); renderTabs(); renderLeft(); renderRight(); return; }
+    if (b.id === 'del-topic') {
+      if (armed === 'topic') {
+        data.topics = data.topics.filter(function (x) { return x.id !== data.sel.topic; });
+        data.sel = { topic: null, page: null }; armed = null; save(); renderAll(); return;
+      }
+      arm('topic', renderLeft); renderLeft(); return;
+    }
+    if (b.classList.contains('entry') && b.getAttribute('data-page')) { selectPage(b.getAttribute('data-topic') || data.sel.topic, b.getAttribute('data-page')); return; }
+    if (b.id === 'copy-md') { copyMd(); return; }
+    if (b.id === 'dl') { download(); return; }
+  });
+
+  $('left').addEventListener('input', function (e) {
+    var t = topic();
+    if (e.target.id === 'topic-name' && t) { t.name = e.target.value; save(); renderTabs(); var cr = document.querySelector('.crumbs span'); if (cr && page()) cr.innerHTML = esc(t.name) + ' &middot; page ' + (t.pages.indexOf(page()) + 1); }
+    if (e.target.id === 'search') {
+      query = e.target.value;
+      var pos = e.target.selectionStart; renderLeft();
+      var s = $('search'); s.focus(); try { s.setSelectionRange(pos, pos); } catch (err) {}
+    }
+  });
+  $('left').addEventListener('change', function (e) {
+    if (e.target.id === 'imp' && e.target.files && e.target.files[0]) importFile(e.target.files[0]);
+  });
+
+  $('right').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'add-page-2') { addPage(); return; }
+    if (b.id === 'del-page') {
+      if (armed === 'page') {
+        var t = topic(); t.pages = t.pages.filter(function (x) { return x.id !== data.sel.page; });
+        data.sel.page = null; armed = null; save(); ensureSel(); renderLeft(); renderRight(); setView('list'); return;
+      }
+      arm('page', renderRight); renderRight();
+    }
+  });
+  $('right').addEventListener('input', function (e) {
+    var p = page(); if (!p) return;
+    var id = e.target.id;
+    if (id === 'p-title') {
+      p.title = e.target.value.replace(/\n/g, ' '); touch(p); save(); growTitle();
+      var cur = document.querySelector('.entry[aria-current="true"] .t'); if (cur) cur.textContent = p.title || 'Untitled';
+    } else if (id === 'p-source') {
+      p.source = e.target.value; touch(p); save();
+      var a = $('src-open'); if (isUrl(p.source)) { a.href = p.source.trim(); a.hidden = false; } else a.hidden = true;
+    } else if (id === 'p-key') { p.key = e.target.value; touch(p); save(); }
+    else if (id === 'p-body') { p.body = e.target.value; touch(p); save(); $('wc').textContent = words(p.body) + ' words'; grow(); }
+  });
+
+  $('clear-ex').addEventListener('click', function () {
+    data.examples = false; data.topics = []; data.sel = { topic: null, page: null }; query = '';
+    var t = { id: uid(), name: 'My first topic', color: 0, pages: [] };
+    data.topics.push(t); data.sel.topic = t.id; save(); renderAll(); setView('list');
+    var inp = $('topic-name'); if (inp) { inp.focus(); inp.select(); }
+  });
+  $('mv-list').addEventListener('click', function () { setView('list'); });
+  $('mv-page').addEventListener('click', function () { setView('page'); });
+
+  /* ---------- copy and backup ---------- */
+  function say(m) { var el = $('msg'); if (el) el.textContent = m; }
+  function toMd(t) {
+    var out = '# ' + t.name + '\n\n';
+    t.pages.forEach(function (p) {
+      out += '## ' + (p.title || 'Untitled') + '\n\n';
+      if (p.source) out += 'Source: ' + p.source + '\n\n';
+      if (p.body) out += p.body + '\n\n';
+      if (p.key) out += '> Remember: ' + p.key + '\n\n';
+    });
+    return out;
+  }
+  function copyMd() {
+    var t = topic(); if (!t) return;
+    var text = toMd(t);
+    try {
+      navigator.clipboard.writeText(text).then(function () { say('Copied "' + t.name + '" as Markdown.'); }, function () { say('Copy was blocked. Use Download backup instead.'); });
+    } catch (e) { say('Copy was blocked. Use Download backup instead.'); }
+  }
+  function download() {
+    try {
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'margin-notes-backup.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      say('Backup requested. If nothing downloaded, open the notebook from its own web address.');
+    } catch (e) { say('Download is not available here.'); }
+  }
+  function importFile(file) {
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var d = JSON.parse(r.result);
+        if (!d || !Array.isArray(d.topics)) throw new Error('bad');
+        d.topics.forEach(function (t) { if (!Array.isArray(t.pages)) t.pages = []; });
+        data = { topics: d.topics, sel: { topic: null, page: null }, examples: false };
+        save(); renderAll(); setView('list');
+        var el = $('msg'); if (el) el.textContent = 'Backup imported.';
+      } catch (e) { say('That file is not a Margin Notes backup.'); }
+    };
+    r.readAsText(file);
+  }
+
+  $('right').addEventListener('keydown', function (e) { if (e.target.id === 'p-title' && e.key === 'Enter') { e.preventDefault(); var b = $('p-body'); if (b) b.focus(); } });
+  window.addEventListener('resize', function () { growTitle(); grow(); });
+  try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { growTitle(); grow(); }); } catch (e) {}
+
+  load();
+  renderAll();
+  setView(window.matchMedia && window.matchMedia('(max-width: 899px)').matches ? 'list' : 'page');
+})();
+</script>
+
+</body></html>
